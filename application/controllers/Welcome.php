@@ -23,4 +23,25 @@ class Welcome extends CI_Controller {
 		$this->load->library('Pdf');
 		$this->load->view('view_file');
 	}
+	
+	public function testrest()
+	{
+		/*$this->load->library('rest', array('server' => 'http://twitter.com/'));
+		$user = $this->rest->get('users/show', array('screen_name' => 'philsturgeon'));*/
+		$this->load->library('rest');
+		$config = array('server' 			=> 'https://jsonplaceholder.typicode.com/posts',
+				//'api_key'			=> 'Setec_Astronomy'
+				//'api_name'		=> 'X-API-KEY'
+				//'http_user' 		=> 'username',
+				//'http_pass' 		=> 'password',
+				'http_auth' 		=> 'Authorization: Bearer bbbb',
+				//'ssl_verify_peer' => TRUE,
+				//'ssl_cainfo' 		=> '/certs/cert.pem'
+				);
+		$this->rest->initialize($config);
+		$username = 'rainergua';
+		$tweets = $this->rest->get('');
+		print_r(json_encode($tweets));
+	}
+
 }
