@@ -10,8 +10,9 @@ function __construct() {
     }
     private function verihead($header)
     {
+        
         $token = $header['Authorization'];
-        print_r($header);
+        //return $token;
         if($this->tok == $token){
             return true;
         }else{
@@ -20,6 +21,11 @@ function __construct() {
     }
 
     public function index_get(){
+        /*$this->response([
+            'status' => false,
+            'message' => $this->input->request_headers()
+        ], 404);
+        return;*/
         $headers = $this->input->request_headers();
         if(!$this->verihead($headers)){
             $this->response( [
@@ -32,18 +38,19 @@ function __construct() {
                 ['id' => 1, 'name' => 'Jim', 'email' => 'jim@example.com'],
             ];
             $id = $this->get( 'id' );
+            $id = $_GET["id"];
             if(!empty($id)){
                 if ( $users )
                 {
                     // Set the response and exit
-                    $this->response( $users, 200 );
+                    $this->response( [$users,$headers,$id], 200 );
                 }
                 else
                 {
                     // Set the response and exit
                     $this->response( [
                         'status' => false,
-                        'message' => 'No users were found'
+                        'message' => 'No users were found 1'
                     ], 404 );
                 }
             }else{
@@ -55,7 +62,8 @@ function __construct() {
                 {
                     $this->response( [
                         'status' => false,
-                        'message' => 'No such user found'
+                        'message' => 'No such user found 2',
+                        'id'    => $id
                     ], 404 );
                 }
             }
